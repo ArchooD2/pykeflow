@@ -94,3 +94,7 @@ wf.save(".github/workflows/my-workflow.yml")
 This project is licensed under the [Mozilla Public License 2.0 (MPL 2.0)](https://www.mozilla.org/en-US/MPL/2.0/).
 
 ---
+
+## 🔧 Contributing
+
+Feel free to fork and make changes!
