@@ -3,6 +3,7 @@ import tempfile
 from pykeflow import Workflow, Job, Step
 from ruamel.yaml.scalarstring import LiteralScalarString
 
+
 def test_step_to_dict():
     s1 = Step(name="Say hello", run="echo Hello")
     s2 = Step(name="Multiline", run="echo Hi\necho Bye", with_args={"arg1": "val"})
@@ -25,6 +26,7 @@ def test_job_to_dict():
     assert len(job_dict["steps"]) == 1
     assert job_dict["steps"][0]["name"] == "Test"
 
+
 def test_workflow_dict_and_yaml():
     step = Step(name="Run tests", run="pytest")
     job = Job(id="test", runs_on="ubuntu-latest", steps=[step])
@@ -40,20 +42,22 @@ def test_workflow_dict_and_yaml():
     assert "on:" in yaml_str
     assert "test:" in yaml_str
 
+
 def test_round_trip_yaml():
     step = Step(name="Build", run="make all")
     job = Job(id="build", runs_on="ubuntu-latest", steps=[step])
-    wf = Workflow(name="Build Workflow", on=['push'], jobs=[job])
+    wf = Workflow(name="Build Workflow", on=["push"], jobs=[job])
 
     yaml_str = wf.to_yaml()
-    print(yaml_str,wf.to_dict())  # For debugging purposes
+    print(yaml_str, wf.to_dict())  # For debugging purposes
     new_wf = Workflow.from_yaml(yaml_str)
-    print(new_wf,new_wf.to_yaml())  # For debugging purposes
+    print(new_wf, new_wf.to_yaml())  # For debugging purposes
 
     assert new_wf.name == wf.name
     assert new_wf.on == wf.on
     assert len(new_wf.jobs) == 1
     assert new_wf.jobs[0].runs_on == "ubuntu-latest"
+
 
 def test_save_to_file():
     step = Step(name="Save test", run="echo saving")
