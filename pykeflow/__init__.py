@@ -55,7 +55,7 @@ class Workflow:
         on_raw = data.get('on', [])
         if isinstance(on_raw, str):
             on = [on_raw]
-        elif isinstance(on_raw, list, CommentedSeq):
+        elif isinstance(on_raw, (list, CommentedSeq)):
             on = list(on_raw)
         elif isinstance(on_raw, dict):
             on = dict(on_raw)
